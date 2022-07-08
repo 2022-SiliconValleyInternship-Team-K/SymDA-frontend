@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # symda
 
 A new Flutter project.
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# SymDa-frontend
+>>>>>>> 9acc78e21cbfb1a0c7f778e5b86bf5e64d8e7bb4
