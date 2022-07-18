@@ -4,7 +4,9 @@ import 'package:symda_application_1/screens/5Awriting/Screen5A.dart';
 import 'package:symda_application_1/screens/5BwriteDone/Screen5B.dart';
 import 'package:symda_application_1/screens/6showAll/Screen6.dart';
 import 'package:symda_application_1/screens/7showOne/Screen7.dart';
-import 'package:symda_application_1/screens/home.dart';
+import 'package:symda_application_1/screens/mainCalender.dart';
+import 'package:symda_application_1/screens/signUp.dart';
+import 'package:symda_application_1/screens/splashScreen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -22,9 +24,10 @@ class _MainScreenState extends State<MainScreen> {
       body: IndexedStack(
         index: _selectedIndex,
         children: [
-          HomeScreen(),
+          // 제가 맡은 화면이 제대로 보이는지 확인하기 위해 순서를 바꿨습니다
+          // SplashScreen(),
           Screen5A(),
-          Screen5B(),
+          // Screen5B(),
           Screen6(),
           Screen7(),
         ],
