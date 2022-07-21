@@ -2,6 +2,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:symda/pages/screens/6showAll/Screen6.dart';
 
 
 import '../pages/mainCalender.dart';
@@ -16,7 +17,7 @@ class _AppState extends State<App> {
     int _selectedIndex = 1;
 
   List _selectedMenu = [
-    Text("일기모아보기 화면"),
+    Screen6(),
  mainCalender(),
 plant()
   ];
