@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:image_picker/image_picker.dart';
 
 // _getFromGallery() async {
   // PickedFile pickedFile = await ImagePicker().getImage(

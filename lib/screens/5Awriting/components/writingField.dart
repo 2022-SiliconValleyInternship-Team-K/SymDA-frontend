@@ -1,25 +1,56 @@
-// 텍스트필드를 따로 작성하면 좋을 것 같아서 따로 파일을 만들었는데
-// 계속 오류가 나서 Screen5A에 바로 텍스트필드를 넣었습니다.
-
 import 'package:flutter/material.dart';
+import 'package:symda_application_1/theme.dart';
 
-class WritingField extends StatelessWidget {
+class WritingField extends StatefulWidget {
   const WritingField({Key? key}) : super(key: key);
 
   @override
+  State<WritingField> createState() => _WritingFieldState();
+}
+
+class _WritingFieldState extends State<WritingField> {
+  String inputText = 'happy';
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SingleChildScrollView(
-            child: ListView(
-      children: [
-        TextField(
-          decoration: InputDecoration(
-              labelText: '오늘 하루는?', fillColor: Colors.white, filled: true),
-          keyboardType: TextInputType.multiline,
-          minLines: 4,
-          maxLines: 5,
+    return Card(
+      child: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+            child: GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // Text('$inputText'),
+
+                    TextField(
+                      onChanged: (text) {
+                        setState(() {
+                          inputText = text;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelText: '오늘 하루는 어땠나요?',
+                        labelStyle: textTheme().bodyText1,
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xffA98467), width: 1.0),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                      ),
+                      keyboardType: TextInputType.multiline,
+                      minLines: 4,
+                      maxLines: 10,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
-      ],
-    )));
+      ),
+    );
   }
 }

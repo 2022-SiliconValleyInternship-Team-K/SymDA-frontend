@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:symda_application_1/screens/6showAll/components/showAllBody.dart';
+import 'components/showAllBody.dart';
 
 class Screen6 extends StatelessWidget {
   const Screen6({Key? key}) : super(key: key);

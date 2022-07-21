@@ -8,7 +8,7 @@ class HeaderText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+      margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
       elevation: 0.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
       color: Color(0xffF0EAD2),

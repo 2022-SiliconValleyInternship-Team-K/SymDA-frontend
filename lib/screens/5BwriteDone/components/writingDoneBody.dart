@@ -13,7 +13,7 @@ class DoneBody extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(15)),
       ),
       child: Column(children: [
-        _buildTop(), // 윗쪽 간격 조정
+        _buildTop(), // 간격 조정
         _buildDate(), // 날짜
         _buildTop(), // 간격 조정
         Divider(
@@ -39,6 +39,7 @@ Padding _buildTop() {
 }
 
 Padding _buildDate() {
+  // 날짜
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 16),
     child: Row(
@@ -100,7 +101,7 @@ Padding _buildWriting() {
 //   );
 // }
 Padding _buildImage() {
-  // 일기에 첨부된 사진 - 크기 조정을 위해 임시로 asset에 있는 사진을 보여주도록 함
+  // 일기에 첨부된 사진 - 크기 확인을 위해 임시로 asset에 있는 사진을 보여주도록 함
   return Padding(
     padding: EdgeInsets.only(
       left: 16,

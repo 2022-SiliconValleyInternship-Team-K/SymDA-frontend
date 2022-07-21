@@ -4,7 +4,7 @@ import 'package:symda_application_1/screens/5Awriting/Screen5A.dart';
 import 'package:symda_application_1/screens/5BwriteDone/Screen5B.dart';
 import 'package:symda_application_1/screens/6showAll/Screen6.dart';
 import 'package:symda_application_1/screens/7showOne/Screen7.dart';
-import 'package:symda_application_1/screens/mainCalender.dart';
+// import 'package:symda_application_1/screens/mainCalender.dart';
 import 'package:symda_application_1/screens/signUp.dart';
 import 'package:symda_application_1/screens/splashScreen.dart';
 
@@ -32,6 +32,8 @@ class _MainScreenState extends State<MainScreen> {
           Screen7(),
         ],
       ),
+
+      // 임의로 만든 네비게이션바
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color(0xffA98467),
         type: BottomNavigationBarType.fixed,

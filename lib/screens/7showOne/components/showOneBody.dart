@@ -51,6 +51,7 @@ Padding _buildTop() {
 }
 
 Padding _buildDate() {
+  // 날짜
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 16),
     child: Row(

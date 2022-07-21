@@ -1,8 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:symda_application_1/theme.dart';
 
 class DoneButton extends StatelessWidget {
@@ -19,8 +15,8 @@ class DoneButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 60,
-      height: 40,
+      width: 200,
+      height: 45,
       child: ElevatedButton(
         onPressed: () {
           Navigator.pushNamed(context, '/b');
@@ -33,6 +29,7 @@ class DoneButton extends StatelessWidget {
               fontFamily: "NanumSquare",
               fontSize: 18.0,
             ),
+            overflow: TextOverflow.ellipsis,
           ),
         ),
         style: ElevatedButton.styleFrom(

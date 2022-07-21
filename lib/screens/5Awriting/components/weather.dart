@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:symda_application_1/theme.dart';
 
 class Weather extends StatefulWidget {
@@ -20,45 +19,49 @@ class WeatherState extends State<Weather> {
       margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-      child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '오늘의 날씨는?',
-                style: textTheme().bodyText1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                IconButton(
-                  icon: Icon(Icons.sunny),
-                  color: Colors.redAccent,
-                  onPressed: () {},
+      child: SingleChildScrollView(
+        child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '오늘의 날씨는?',
+                  style: textTheme().bodyText1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                IconButton(
-                  icon: Icon(Icons.air),
-                  color: Colors.lightBlue,
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: Icon(Icons.cloud),
-                  color: Colors.lightBlueAccent,
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: Icon(Icons.umbrella),
-                  color: Colors.blueAccent,
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: Icon(Icons.ac_unit),
-                  color: Colors.lightBlueAccent,
-                  onPressed: () {},
-                ),
-              ]),
-            ],
-          )),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.sunny),
+                        color: Colors.redAccent,
+                        onPressed: () {},
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.air),
+                        color: Colors.lightBlue,
+                        onPressed: () {},
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.cloud),
+                        color: Colors.lightBlueAccent,
+                        onPressed: () {},
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.umbrella),
+                        color: Colors.blueAccent,
+                        onPressed: () {},
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.ac_unit),
+                        color: Colors.lightBlueAccent,
+                        onPressed: () {},
+                      ),
+                    ]),
+              ],
+            )),
+      ),
     );
   }
 }
