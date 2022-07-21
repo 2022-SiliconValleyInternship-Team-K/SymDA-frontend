@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:symda/loginPage.dart';
+import 'package:symda/pages/loginPage.dart';
 //ignore_for_file: prefer_const_constructors
 
 class SplashScreen extends StatefulWidget{
@@ -24,10 +24,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 @override
   void initState() {
   	Timer(Duration(milliseconds: 2500), () {
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => LogIn()
-                  )
-                  );
+                   Navigator.pushNamed(context, '/login');
+                
                 });
   }
 
@@ -40,7 +38,7 @@ final String imageLogoName = 'src/images/logo.png';
       onWillPop: () async => false,
       child: MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaleFactor:1.0),
-        child: new Scaffold(
+        child: Scaffold(
           backgroundColor: const Color(0xffF0EAD2),
           body: Center(
             child: ScaleTransition(
