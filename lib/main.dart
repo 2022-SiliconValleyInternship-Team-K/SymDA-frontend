@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:symda/pages/emotionResult.dart';
 import 'package:symda/pages/emotionSelect.dart';
 import 'package:symda/pages/loginPage.dart';
 import 'package:symda/pages/mainCalender.dart';

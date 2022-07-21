@@ -242,7 +242,8 @@ class _mainCalenderState extends State<mainCalender> {
                               : Colors.black87.withOpacity(0.3),
                         ),
                       ),
-                       Image.asset('src/images/emotions/joy.png',width: 60,height: 40,)
+                       //Image.asset('src/images/emotions/joy.png',width: 60,height: 40,)
+                    SizedBox(height:20 ,)
                     ],
                   ),
                 ),
@@ -255,23 +256,22 @@ class _mainCalenderState extends State<mainCalender> {
 
   // date selector
   Widget _selector(Calendar calendarDate) {
-    return Container(
-      width: 30,
-      height: 30,
-      child: Container(
-        decoration: BoxDecoration(
-          color: const Color(0xff6C584C),
-          borderRadius: BorderRadius.circular(50),
-        ),
-        child: Center(
-          child: Text(
-            '${calendarDate.date.day}',
-            style:
-                TextStyle(color: Colors.white70, fontWeight: FontWeight.w700),
+    return Center(
+     
+        
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(
+                  '${calendarDate.date.day}',
+                  style:
+                      TextStyle(color: Colors.white70,fontSize: 17,backgroundColor:  Color(0xff6C584C)),
+                ),SizedBox(height:20 ,)
+              ],
+            ),
           ),
-        ),
-      ),
-    );
+        
+      );
   }
 
   // get next month calendar

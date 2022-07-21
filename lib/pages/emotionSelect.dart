@@ -11,6 +11,7 @@ class EmotionSelect extends StatefulWidget {
 class _EmotionSelectState extends State<EmotionSelect> {
   @override
   Widget build(BuildContext context) {
+    var w=MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: const Color(0xffF0EAD2),
         body: Center(
@@ -30,13 +31,13 @@ class _EmotionSelectState extends State<EmotionSelect> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  EmotionsIcon('joy'),
+                  EmotionsIcon('joy',w*0.2),
                   EmotionsIcon(
-                    'anger',
+                    'anger',w*0.2
                   ),
-                  EmotionsIcon('fear'),
+                  EmotionsIcon('fear',w*0.2),
                   EmotionsIcon(
-                    'sad',
+                    'sad',w*0.2
                   ),
                 ],
               ),
@@ -45,7 +46,7 @@ class _EmotionSelectState extends State<EmotionSelect> {
         ));
   }
 
-  Center EmotionsIcon(String s) {
+  Center EmotionsIcon(String s,double w) {
     String etext;
     if (s == 'joy') {
       etext = '행복';
@@ -92,7 +93,7 @@ class _EmotionSelectState extends State<EmotionSelect> {
                 });
               },
               icon: Image.asset('src/images/emotions/$s.png'),
-              iconSize: 82),
+              iconSize: w),
           Text(etext,
               style: const TextStyle(
                 fontSize: 15,

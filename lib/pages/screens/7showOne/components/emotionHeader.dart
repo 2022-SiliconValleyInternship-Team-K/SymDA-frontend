@@ -25,22 +25,22 @@ class EmotionHeader extends StatelessWidget {
               ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 Image.asset(
-                  'src/images/joy_white.png',
+                  'src/images/emotions/joy.png',
                   height: 50,
                   width: 50,
                 ),
                 Image.asset(
-                  'src/images/sad_white.png',
+                  'src/images/emotoins/sad.png',
                   height: 50,
                   width: 50,
                 ),
                 Image.asset(
-                  'src/images/anger_white.png',
+                  'src/images/emotions/anger.png',
                   height: 50,
                   width: 50,
                 ),
                 Image.asset(
-                  'src/images/fear_white.png',
+                  'src/images/emotions/fear.png',
                   height: 50,
                   width: 50,
                 ),

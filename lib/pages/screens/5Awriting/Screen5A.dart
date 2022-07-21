@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'components/dailyQ.dart';
 import 'components/doneButton.dart';
 import 'components/headerText.dart';
-import 'components/imageGal.dart';
+
 import 'components/weather.dart';
 import 'components/writingField.dart';
 

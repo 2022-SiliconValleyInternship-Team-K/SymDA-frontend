@@ -64,7 +64,7 @@ class _plantState extends State<plant> {
                     borderRadius: BorderRadius.circular(18)),
                 child: Text(
                   "일기를 쓸 때마다 쑥쑥 자라나는 감정나무예요.\n당신의 하루를 꾸준히 공유해 감정나무를 키워보세요!",
-                  style: TextStyle(color: Colors.white70, fontSize: 14,fontFamily: 'NanumSquare',letterSpacing: 0.7,height: 1.5),
+                  style: TextStyle(color: Colors.white70, fontSize: 14,fontFamily: 'NanumSquare',letterSpacing: 0.5,height: 1.5),
                   textAlign: TextAlign.center,
                 ),
               ),
