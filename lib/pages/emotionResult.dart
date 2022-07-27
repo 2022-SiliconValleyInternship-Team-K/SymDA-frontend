@@ -13,6 +13,7 @@ class _EmotionResultState extends State<EmotionResult> {
   
   @override
   Widget build(Object context) {
+    
     return Scaffold(
         backgroundColor: const Color(0xffF0EAD2),
         body: Center(
@@ -95,7 +96,9 @@ class _EmotionResultState extends State<EmotionResult> {
       onPressed: () {
         if (s == '아니요') {
           Navigator.pushNamed(context, '/EmotionSelect');
-        } else {}
+        } else {
+          Navigator.pushNamed(context, '/emotion');
+        }
       },
       child: Text(s),
       style: ElevatedButton.styleFrom(

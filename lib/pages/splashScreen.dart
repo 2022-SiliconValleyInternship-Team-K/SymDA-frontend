@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'dart:async';
 
 import 'package:symda/pages/loginPage.dart';
@@ -24,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 @override
   void initState() {
   	Timer(Duration(milliseconds: 2500), () {
-                   Navigator.pushNamed(context, '/login');
+                   Get.toNamed('/users/login');
                 
                 });
   }

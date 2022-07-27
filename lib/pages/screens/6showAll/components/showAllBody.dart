@@ -64,7 +64,7 @@ Padding _buildEmotion() {
         CircleAvatar(
           // 감정 스티커 작게 보이게
           backgroundColor: Color(0xffA98467),
-          backgroundImage: AssetImage('src/images/emotions/joy.png'),
+          backgroundImage: AssetImage('src/images/emotions/JOY.png'),
         ),
         SizedBox(
           // 감정 스티커와 날짜 사이의 간격 조정
