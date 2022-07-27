@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:symda/pages/screens/5Awriting/components/weather.dart';
-
-
-
+import 'package:symda/src/theme.dart';
 
 import '../5Awriting/components/headerText.dart';
 import 'components/doneButton2.dart';
@@ -14,8 +12,12 @@ class Screen5B extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffF0EAD2),
       appBar: AppBar(
-        title: Text('일기 작성 완료 화면'),
+        // title: Text('일기 작성 완료 화면'),
+        centerTitle: false,
+        elevation: 0.0,
+        backgroundColor: Color(0xffF0EAD2),
       ),
       body: Center(
           child: Padding(

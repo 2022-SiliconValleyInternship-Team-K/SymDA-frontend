@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:symda/src/theme.dart';
 
-
 class WritingField extends StatefulWidget {
   const WritingField({Key? key}) : super(key: key);
 
@@ -10,7 +9,7 @@ class WritingField extends StatefulWidget {
 }
 
 class _WritingFieldState extends State<WritingField> {
-  String inputText = 'happy';
+  String inputText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +23,6 @@ class _WritingFieldState extends State<WritingField> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    // Text('$inputText'),
-
                     TextField(
                       onChanged: (text) {
                         setState(() {

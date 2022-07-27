@@ -8,7 +8,6 @@ import 'package:symda/src/theme.dart';
 class DoneButton2 extends StatelessWidget {
   final String? text;
   final GestureTapCallback? press;
-  // final Color color;
 
   const DoneButton2({
     Key? key,
@@ -23,7 +22,7 @@ class DoneButton2 extends StatelessWidget {
       height: 40,
       child: ElevatedButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/c');
+          Navigator.pushNamed(context, '/EmotionSelect'); // 버튼 눌렀을 때 이동할 페이지
         },
         child: Center(
           child: Text(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:symda/src/theme.dart';
 
-
 class DoneButton extends StatelessWidget {
   final String? text;
   final GestureTapCallback? press;
@@ -20,7 +19,7 @@ class DoneButton extends StatelessWidget {
       height: 45,
       child: ElevatedButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/b');
+          Navigator.pushNamed(context, '/writingdone');
         },
         child: Center(
           child: Text(
