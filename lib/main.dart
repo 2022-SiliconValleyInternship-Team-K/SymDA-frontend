@@ -10,7 +10,7 @@ import 'package:symda/pages/signUp.dart';
 import 'package:symda/pages/splashScreen.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:http/http.dart' as http;
-import 'package:symda/src/App.dart';
+
 import 'package:symda/src/calendar.dart';
 
 void main(){

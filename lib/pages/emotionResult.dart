@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-
+import 'package:http/http.dart' as http;
 
 // ignore_for_file: prefer_const_constructors
 
@@ -93,11 +93,11 @@ class _EmotionResultState extends State<EmotionResult> {
 
   ElevatedButton emotionCheckButton(String s) {
     return ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         if (s == '아니요') {
           Navigator.pushNamed(context, '/EmotionSelect');
         } else {
-          Navigator.pushNamed(context, '/emotion');
+
         }
       },
       child: Text(s),
