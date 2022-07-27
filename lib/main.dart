@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:symda/pages/emotionResult.dart';
-import 'package:symda/pages/emotionSelect.dart';
 import 'package:symda/pages/loginPage.dart';
 import 'package:symda/pages/mainCalender.dart';
 import 'package:symda/pages/plant.dart';
@@ -9,16 +7,12 @@ import 'package:symda/pages/screens/5Awriting/Screen5A.dart';
 import 'package:symda/pages/signUp.dart';
 import 'package:symda/pages/splashScreen.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:http/http.dart' as http;
 
-import 'package:symda/src/calendar.dart';
 
 void main(){
   initializeDateFormatting().then((_)=>runApp(MyApp()));
 
 }
-
-
 
 class MyApp extends StatelessWidget{
 
@@ -43,6 +37,5 @@ class MyApp extends StatelessWidget{
   
     );
   }
-
 }
 

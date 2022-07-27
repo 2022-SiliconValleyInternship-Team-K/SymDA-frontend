@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:symda/src/theme.dart';
 
-
 class Weather extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {

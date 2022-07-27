@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:symda/src/theme.dart';
 
 class HeaderText extends StatelessWidget {
   const HeaderText({Key? key}) : super(key: key);
@@ -17,7 +17,8 @@ class HeaderText extends StatelessWidget {
           Text(
             '오늘 하루\n어떠셨나요?',
             style: TextStyle(
-              fontSize: 30.0,
+              fontFamily: 'NanumMyeongjo',
+              fontSize: 30,
               color: Color(0xff6C584C),
               fontWeight: FontWeight.bold,
             ),

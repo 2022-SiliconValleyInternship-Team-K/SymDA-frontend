@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:symda/src/theme.dart';
-
+import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 class ShowOneBody extends StatelessWidget {
   const ShowOneBody({Key? key}) : super(key: key);
@@ -52,6 +53,8 @@ Padding _buildTop() {
 }
 
 Padding _buildDate() {
+  var toDate = DateFormat('yyyy-MM-dd\nHH:mm').format(DateTime.now());
+
   // 날짜
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 16),
@@ -61,7 +64,7 @@ Padding _buildDate() {
           // 일기 작성 날짜
           TextSpan(
             children: [
-              TextSpan(text: '6월 29일 수요일', style: textTheme().headline3),
+              TextSpan(text: toDate, style: textTheme().headline3),
             ],
           ),
         ),
@@ -152,17 +155,20 @@ Padding _buildComment() {
 Padding _buildMusic() {
   // 유튜브 추천 음악
   return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 20,
-        horizontal: 20,
+    padding: EdgeInsets.symmetric(
+      vertical: 20,
+      horizontal: 20,
+    ),
+    child: InkWell(
+      child: Text(
+        "오늘의 추천 음악을 눌러보세요",
+        style: TextStyle(
+            fontFamily: "Kyobo",
+            fontSize: 16.0,
+            color: Colors.black,
+            fontWeight: FontWeight.bold),
       ),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Text.rich(TextSpan(children: [
-          TextSpan(text: '오늘의 추천 음악\n\n', style: textTheme().headline2),
-          TextSpan(
-              style: textTheme().subtitle2,
-              text: '당신이 서있는 오늘과 걸어온 모든 하루를 응원해요! \n푹 쉬고 내일도 화이팅:)'),
-        ])),
-      ));
+      onTap: () => launch('https://www.youtube.com/'),
+    ),
+  );
 }

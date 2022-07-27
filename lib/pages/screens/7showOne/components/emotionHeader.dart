@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:symda/src/theme.dart';
 
-
 // 5.4에서 감정 스티커가 보이는 공간
 
 class EmotionHeader extends StatelessWidget {
@@ -26,23 +25,23 @@ class EmotionHeader extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 Image.asset(
                   'src/images/emotions/joy.png',
-                  height: 50,
-                  width: 50,
+                  height: 40,
+                  width: 40,
                 ),
                 Image.asset(
-                  'src/images/emotoins/sad.png',
-                  height: 50,
-                  width: 50,
+                  'src/images/emotions/sad.png',
+                  height: 40,
+                  width: 40,
                 ),
                 Image.asset(
                   'src/images/emotions/anger.png',
-                  height: 50,
-                  width: 50,
+                  height: 40,
+                  width: 40,
                 ),
                 Image.asset(
                   'src/images/emotions/fear.png',
-                  height: 50,
-                  width: 50,
+                  height: 40,
+                  width: 40,
                 ),
               ]),
             ],
