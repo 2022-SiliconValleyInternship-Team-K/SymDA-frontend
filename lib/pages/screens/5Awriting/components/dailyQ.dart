@@ -3,10 +3,14 @@ import 'package:symda/src/theme.dart';
 
 import "dart:math";
 
-T getRandomElement<T>(List<T> list) {
+var i;
+  T getRandomElement<T>(List<T> list) {
   final random = new Random();
-  var i = random.nextInt(list.length);
+  i = random.nextInt(list.length);
   return list[i];
+}
+int questionid(){
+  return i;
 }
 
 String rand() {
@@ -21,17 +25,17 @@ String rand() {
   // print(element);
   return element;
 }
-
 String dailyQ = rand();
 
 class DailyQ extends StatefulWidget {
   const DailyQ({Key? key}) : super(key: key);
 
   @override
-  State<DailyQ> createState() => _DailyQState();
+  State<DailyQ> createState() => DailyQState();
 }
 
-class _DailyQState extends State<DailyQ> {
+class DailyQState extends State<DailyQ> {
+ static var qeustionI=questionid();
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -42,20 +46,11 @@ class _DailyQState extends State<DailyQ> {
       child: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(15.0),
-          child: Row(children: [
-            IconButton(
-              // 오늘의 질문 체크 박스
-              icon: Icon(Icons.check_box_outline_blank_outlined),
-              onPressed: () {},
-            ),
+          child: 
             Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  '오늘의 질문 \n',
-                  style: textTheme().bodyText2,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                ),
+      
                 Text(
                   '$dailyQ',
                   // 'hello',
@@ -65,9 +60,14 @@ class _DailyQState extends State<DailyQ> {
                 ),
               ],
             )
-          ]),
+          
         ),
       ),
     );
   }
+
+
+
+
+
 }

@@ -4,6 +4,8 @@ import 'package:symda/pages/loginPage.dart';
 import 'package:symda/pages/mainCalender.dart';
 import 'package:symda/pages/plant.dart';
 import 'package:symda/pages/screens/5Awriting/Screen5A.dart';
+import 'package:symda/pages/screens/6showAll/Screen6.dart';
+import 'package:symda/pages/screens/7showOne/Screen7.dart';
 import 'package:symda/pages/signUp.dart';
 import 'package:symda/pages/splashScreen.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -27,9 +29,10 @@ class MyApp extends StatelessWidget{
         GetPage(name: '/users/signup', page: ()=> SignUp()),
         GetPage(name: '/diary/monthly/:date/plant', page: ()=> plant()),
         GetPage(name: '/diary/monthly/:date/emotion', page: ()=> mainCalender()),
-        GetPage(name: '/diary/monthly/:date', page: ()=> mainCalender()),
+        GetPage(name: '/diary/monthly/:date', page: ()=> Screen6()),
         GetPage(name: '/diary/new', page: ()=> Screen5A()),
-        GetPage(name: '/diary/date/:date', page: ()=> Screen5A()),
+        GetPage(name: '/diary/date/:date', page: ()=> Screen7()),
+        
       ]
      
    

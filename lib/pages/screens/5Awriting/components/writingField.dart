@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:symda/src/theme.dart';
 
 class WritingField extends StatefulWidget {
   const WritingField({Key? key}) : super(key: key);
 
   @override
-  State<WritingField> createState() => _WritingFieldState();
+  State<WritingField> createState() => WritingFieldState();
 }
 
-class _WritingFieldState extends State<WritingField> {
-  String inputText = '';
+class WritingFieldState extends State<WritingField> {
+  static String inputText = '';
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       child: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -23,23 +25,23 @@ class _WritingFieldState extends State<WritingField> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    
                     TextField(
+                    cursorColor:Color(0xffA98467),
+                      style:TextStyle(fontFamily: "YS"),
                       onChanged: (text) {
                         setState(() {
                           inputText = text;
                         });
                       },
                       decoration: InputDecoration(
-                        labelText: '오늘 하루는 어땠나요?',
+                        focusedBorder: OutlineInputBorder(borderRadius:BorderRadius.circular(15.0),borderSide:BorderSide(color:Color(0xffA98467))),
+                       labelText:'${DateTime.now().year}년 ${DateTime.now().month.toString().padLeft(2,"0")}월 ${DateTime.now().day.toString().padLeft(2,"0")}일',
+                        
                         labelStyle: textTheme().bodyText1,
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color(0xffA98467), width: 1.0),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
                       ),
-                      keyboardType: TextInputType.multiline,
-                      minLines: 4,
+         keyboardType: TextInputType.multiline,
+                     minLines: 2,
                       maxLines: 10,
                     ),
                   ],

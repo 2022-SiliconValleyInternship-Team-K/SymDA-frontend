@@ -1,51 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:symda/src/theme.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+import 'package:symda/pages/screens/7showOne/components/emotionHeader.dart';
+var list;
 // 5.4에서 감정 스티커가 보이는 공간
 
-class EmotionHeader extends StatelessWidget {
+
+class EmotionHeader extends StatefulWidget {
   const EmotionHeader({Key? key}) : super(key: key);
 
   @override
+  State<EmotionHeader> createState() => _EmotionHeaderState();
+}
+
+class _EmotionHeaderState extends State<EmotionHeader> {
+  @override
   Widget build(BuildContext context) {
+     var w = MediaQuery.of(context).size.width;
+    var h = MediaQuery.of(context).size.height;
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
-      elevation: 0.5,
+      color:Colors.white70,
+      margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
+      elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-      child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '당신의 기분은',
-                style: textTheme().bodyText1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                Image.asset(
-                  'src/images/emotions/joy.png',
-                  height: 40,
-                  width: 40,
+      child: 
+       
+             
+                Container(
+                  alignment: Alignment.center,
+                  child: Column(
+        
+                    children: [
+                    
+                        Image.asset(
+                          'src/images/emotions/${list[0]["emotion"]}.png',
+                          width: w*0.25,
+                          height: h*0.2,
+                        )
+                      
+                    ],
+                  ),
                 ),
-                Image.asset(
-                  'src/images/emotions/sad.png',
-                  height: 40,
-                  width: 40,
-                ),
-                Image.asset(
-                  'src/images/emotions/anger.png',
-                  height: 40,
-                  width: 40,
-                ),
-                Image.asset(
-                  'src/images/emotions/fear.png',
-                  height: 40,
-                  width: 40,
-                ),
-              ]),
-            ],
-          )),
+
+          
+            
+        
     );
   }
+
 }

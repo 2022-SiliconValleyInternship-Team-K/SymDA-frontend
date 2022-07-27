@@ -18,12 +18,12 @@ var url;
 
 class mainCalender extends StatefulWidget {
   @override
-  State<mainCalender> createState() => _mainCalenderState();
+  State<mainCalender> createState() => mainCalenderState();
 }
 
 enum CalendarViews { dates, months, year }
 
-class _mainCalenderState extends State<mainCalender> {
+class mainCalenderState extends State<mainCalender> {
   void fetchInfo() async {
     url =
         'http://ec2-13-209-3-136.ap-northeast-2.compute.amazonaws.com:8080/diary/monthly/$year$month/emotion';
@@ -86,23 +86,28 @@ class _mainCalenderState extends State<mainCalender> {
         child: SizedBox(
           width: w * 0.9,
           height: h * 0.9,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Padding(padding: EdgeInsets.only(top: 10)),
-              Container(
-                  alignment: Alignment.topLeft,
-                  child: const Text(
-                    "당신의 한달은 \n어땠을까요?",
-                    style: TextStyle(
-                      fontFamily: 'NanumMyeongjo',
-                      fontSize: 28,
-                      color: Color(0xff6C584C),
-                    ),
-                  )),
-              const Padding(padding: EdgeInsets.only(top: 10)),
-              _datesView()
-            ],
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Padding(padding: EdgeInsets.only(top: 10)),
+                  Container(
+                      alignment: Alignment.topLeft,
+                      child: const Text(
+                        "당신의 한달은 \n어땠을까요?",
+                        style: TextStyle(
+                          fontFamily: 'NanumMyeongjo',
+                          fontSize: 28,
+                          color: Color(0xff6C584C),
+                        ),
+                      )),
+                  const Padding(padding: EdgeInsets.only(top: 10)),
+                  _datesView()
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -379,7 +384,7 @@ class _mainCalenderState extends State<mainCalender> {
   return CurvedNavigationBar(
       index: 1,
       height: 45,
- backgroundColor:(_selectedIndex==0)?Colors.white70:const Color(0xffF0EAD2),
+ backgroundColor:const Color(0xffF0EAD2),
       
       buttonBackgroundColor: Colors.transparent,
       color: const Color(0xff6C584C).withOpacity(0.8),

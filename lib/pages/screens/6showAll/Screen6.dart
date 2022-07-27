@@ -7,23 +7,27 @@ class Screen6 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+       var h = MediaQuery.of(context).size.height;
+    var w = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: const Color(0xffF0EAD2),
-        appBar: AppBar(
-          // title: Text('일기 상세보기'),
-          centerTitle: false,
-          elevation: 0.0,
-          backgroundColor: Color(0xffF0EAD2),
-        ),
-        body: ListView(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(bottom: 12.0),
-              child: ShowAllBody(
-                  // showAll: showAllList[0], // 일기가 여러 개이면 여러 개 보여줌
-                  ),
-            )
-          ],
-        ));
+
+        body: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: h*0.05,),
+                SizedBox(
+                width: w*0.9,
+                    child: ShowAllBody(
+          
+                        ),
+                  ),]
+            ),
+          ),
+        )
+      
+        );
   }
 }

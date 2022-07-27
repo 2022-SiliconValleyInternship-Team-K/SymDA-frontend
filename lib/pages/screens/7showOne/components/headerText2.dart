@@ -15,12 +15,12 @@ class HeaderText2 extends StatelessWidget {
         padding: EdgeInsets.only(bottom: 10.0),
         child: Row(children: [
           Text(
-            '당신의 하루 . . .',
+            '당신의 하루 ⋯ ',
             style: TextStyle(
               fontFamily: 'NanumMyeongjo',
               fontSize: 30,
               color: Color(0xff6C584C),
-              fontWeight: FontWeight.bold,
+              
             ),
           ),
         ]),

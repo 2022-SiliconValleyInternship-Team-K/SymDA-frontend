@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:symda/pages/screens/7showOne/components/weatherIcon.dart';
 
 import 'components/emotionHeader.dart';
 import 'components/headerText2.dart';
@@ -10,23 +11,34 @@ class Screen7 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+      var w = MediaQuery.of(context).size.width;
+    var h = MediaQuery.of(context).size.height;
     return Scaffold(
+      
         backgroundColor: const Color(0xffF0EAD2),
-        appBar: AppBar(
-          // title: Text('일기 상세보기'),
-          centerTitle: false,
-          elevation: 0.0,
-          backgroundColor: Color(0xffF0EAD2),
-        ),
-        body: ListView(
-          children: [
-            HeaderText2(), // 상단의 '당신의 하루 ...' 문구
-            EmotionHeader(), // 감정스티커 모음
-            Padding(
-              padding: EdgeInsets.only(bottom: 12.0),
-              child: ShowOneBody(),
-            )
-          ],
+    
+        body: SingleChildScrollView(
+          child: Column(
+           
+            children: [
+              SizedBox(height: h*0.05,),
+              Row(
+                children: [
+                  HeaderText2(),
+                  SizedBox(width: w*0.3,),
+                 showWeather()
+                ],
+              ), // 상단의 '당신의 하루 ...' 문구
+           // 감정스티커 모음
+              SizedBox(
+                width: w*0.9,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 30.0),
+                  child: ShowOneBody(),
+                ),
+              )
+            ],
+          ),
         ));
   }
 }
