@@ -30,21 +30,25 @@ class _ShowAllBodyState extends State<ShowAllBody> {
   }
   @override
   Widget build(BuildContext context) {
-    if(length == 0){
-      return Text("작성한 일기가 없습니다.");
-    }
-    else{
-      for(int i=0;i<length;i++){
-        return diary(i);
-}
+    return GridView.count(
+      crossAxisCount: 1,
+    padding: EdgeInsets.all(10.0),
+    children: getList(),
+    );
 
-    }
-
-throw Exception();
   }
+  
+ List<Widget> getList() {
+List<Widget> childs = [];
+for(var i=0;i<length;i++){
+  childs.add(diary(i));
+}
+return childs;
+
+ }
 }
 
-Widget diary(int i){
+Container diary(int i){
       return Container(
      decoration: BoxDecoration(
         color: Colors.white70,
