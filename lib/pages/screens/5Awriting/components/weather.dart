@@ -4,30 +4,30 @@ import 'package:symda/src/theme.dart';
 class Weather extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new WeatherState();
+    return WeatherState();
   }
 }
 
 class WeatherState extends State<Weather> {
   // const Weather({Key? key}) : super(key: key);
 
-  bool isPressed = false;
+  static late String w;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
+      margin: EdgeInsets.symmetric(vertical: 7.0, horizontal: 0.0),
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       child: SingleChildScrollView(
         child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(8.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  '오늘의 날씨는?',
-                  style: textTheme().bodyText1,
+                  '오늘 날씨는 어땠나요?',
+                  style: textTheme().headline3,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Row(
@@ -35,28 +35,45 @@ class WeatherState extends State<Weather> {
                     children: [
                       IconButton(
                         icon: Icon(Icons.sunny),
-                        color: Colors.redAccent,
-                        onPressed: () {},
+                        color:
+                            w == "SUNNY" ? Color(0xffADC178) : Colors.redAccent,
+                        focusColor: Color(0xffADC178),
+                        onPressed: () {
+                          w = "SUNNY";
+                        },
                       ),
                       IconButton(
-                        icon: Icon(Icons.air),
-                        color: Colors.lightBlue,
-                        onPressed: () {},
+                        icon: Icon(Icons.foggy),
+                        color: w == "FOGGY" ? Color(0xffADC178) : Colors.grey,
+                        onPressed: () {
+                          w = "FOGGY";
+                        },
                       ),
                       IconButton(
                         icon: Icon(Icons.cloud),
-                        color: Colors.lightBlueAccent,
-                        onPressed: () {},
+                        color:
+                            w == "CLOUDY" ? Color(0xffADC178) : Colors.black54,
+                        onPressed: () {
+                          w = "CLOUDY";
+                        },
                       ),
                       IconButton(
                         icon: Icon(Icons.umbrella),
-                        color: Colors.blueAccent,
-                        onPressed: () {},
+                        color: w == "RAINY"
+                            ? Color(0xffADC178)
+                            : Colors.blueAccent,
+                        onPressed: () {
+                          w = "RAINY";
+                        },
                       ),
                       IconButton(
                         icon: Icon(Icons.ac_unit),
-                        color: Colors.lightBlueAccent,
-                        onPressed: () {},
+                        color: w == "SNOWY"
+                            ? Color(0xffADC178)
+                            : Colors.lightBlueAccent,
+                        onPressed: () {
+                          w = "SNOWY";
+                        },
                       ),
                     ]),
               ],

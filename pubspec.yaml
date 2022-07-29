@@ -27,6 +27,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  group_button: ^5.0.1
+  get: ^4.6.5
   url_launcher: ^6.0.18
   mysql1: ^0.20.0
   http: ^0.13.4
@@ -39,7 +41,7 @@ dependencies:
     sdk: flutter 
   image_picker:
   # DateTimeFormat
-  intl: ^0.16.0
+
 
 
   # The following adds the Cupertino Icons font to your application.

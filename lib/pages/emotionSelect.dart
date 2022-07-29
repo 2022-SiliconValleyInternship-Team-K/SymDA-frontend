@@ -1,5 +1,13 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:symda/pages/screens/5Awriting/components/headerText.dart';
+import 'package:symda/pages/screens/5Awriting/components/imageGal.dart';
+import 'package:symda/pages/screens/5Awriting/components/weather.dart';
+import 'package:symda/pages/screens/5Awriting/components/writingField.dart';
+
+import 'package:http/http.dart' as http;
 
 class EmotionSelect extends StatefulWidget {
   const EmotionSelect({Key? key}) : super(key: key);
@@ -31,13 +39,13 @@ class _EmotionSelectState extends State<EmotionSelect> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  EmotionsIcon('joy',w*0.2),
+                  EmotionsIcon('JOY',w*0.2),
                   EmotionsIcon(
-                    'anger',w*0.2
+                    'ANGER',w*0.2
                   ),
-                  EmotionsIcon('fear',w*0.2),
+                  EmotionsIcon('FEAR',w*0.2),
                   EmotionsIcon(
-                    'sad',w*0.2
+                    'SAD',w*0.2
                   ),
                 ],
               ),
@@ -48,11 +56,11 @@ class _EmotionSelectState extends State<EmotionSelect> {
 
   Center EmotionsIcon(String s,double w) {
     String etext;
-    if (s == 'joy') {
+    if (s == 'JOY') {
       etext = '행복';
-    } else if (s == 'sad') {
+    } else if (s == 'SAD') {
       etext = '슬픔';
-    } else if (s == 'anger') {
+    } else if (s == 'ANGER') {
       etext = '화남';
     } else {
       etext = '불안';
@@ -75,8 +83,32 @@ class _EmotionSelectState extends State<EmotionSelect> {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(minimumSize: Size(100, 50),primary:const Color(0xffADC178),), 
                         onPressed: () { 
+                           onPressed: () async {
+        if (s == '아니요') {
+          Navigator.pushNamed(context, '/EmotionSelect');
+        } else {
+                           var data = {
+                      "content":WritingFieldState.inputText,
+                      "weather":WeatherState.w,
+                      "emotion":s,
+                      "questionId":HeaderText.qeustionI,
+                      "image":ImagePicState.Pimage
+                    };
+          var body = json.encode(data);
+                   http.Response _res = await http.post(
+              Uri.parse(
+                  'http://ec2-13-209-3-136.ap-northeast-2.compute.amazonaws.com:8080/diary/new'),
+              body: body);
+          if (_res.statusCode == 200) {
+         Get.toNamed('/diary/date/${DateTime.now().year}${DateTime.now().month.toString().padLeft(2,"0")}${DateTime.now().day.toString().padLeft(2,"0")}');
+            print('Form is valid');
+          } else {
+            print(_res.statusCode);
+        
+          }
+        }
                           
-                           },
+                           }; },
                       child:Text('네',style:TextStyle(fontFamily: 'NanumSquare',fontWeight: FontWeight.bold)) ),
                       Padding(padding: EdgeInsets.only(left: 15)),
                       ElevatedButton(

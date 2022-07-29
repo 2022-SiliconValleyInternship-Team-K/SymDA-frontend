@@ -1,9 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:symda/src/theme.dart';
+import "dart:math";
+
+var i;
+  T getRandomElement<T>(List<T> list) {
+  final random = new Random();
+  i = random.nextInt(list.length);
+  return list[i];
+}
+int questionid(){
+  return i;
+}
+
+String rand() {
+  var list = [
+    '오늘 하루는 \n어땠나요?',
+    '오늘 가장 생각나는 \n순간은?',
+    '오늘 가장 잘 활용한 \n아이템이 있다면?',
+    '오늘의 작은 기쁨은 \n무엇일까요?',
+    '오늘 힘든 일은 \n없었나요?'
+  ];
+  var element = getRandomElement(list);
+  // print(element);
+  return element;
+}
+String dailyQ = rand();
 
 class HeaderText extends StatelessWidget {
   const HeaderText({Key? key}) : super(key: key);
-
+static var qeustionI=questionid();
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -15,12 +40,12 @@ class HeaderText extends StatelessWidget {
         padding: EdgeInsets.only(bottom: 10.0),
         child: Row(children: [
           Text(
-            '오늘 하루\n어떠셨나요?',
+            '$dailyQ',
             style: TextStyle(
               fontFamily: 'NanumMyeongjo',
               fontSize: 30,
               color: Color(0xff6C584C),
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ]),

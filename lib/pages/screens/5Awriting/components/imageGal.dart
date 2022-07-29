@@ -19,18 +19,18 @@ class ImagePic extends StatefulWidget {
   const ImagePic({Key? key}) : super(key: key);
 
   @override
-  State<ImagePic> createState() => _ImagePicState();
+  State<ImagePic> createState() => ImagePicState();
 }
 
-class _ImagePicState extends State<ImagePic> {
-  PickedFile? _image;
+class ImagePicState extends State<ImagePic> {
+  static PickedFile? Pimage;
 
   Future getIamgeFromCam() async {
     // for camera
     var image =
         await ImagePicker.platform.pickImage(source: ImageSource.camera);
     setState(() {
-      _image = image!;
+      Pimage = image!;
     });
   }
 
@@ -39,7 +39,7 @@ class _ImagePicState extends State<ImagePic> {
     var image =
         await ImagePicker.platform.pickImage(source: ImageSource.gallery);
     setState(() {
-      _image = image!;
+      Pimage = image!;
     });
   }
 
