@@ -10,8 +10,10 @@ class Weather extends StatefulWidget {
 
 class WeatherState extends State<Weather> {
   // const Weather({Key? key}) : super(key: key);
+  @override
 
-  static late String w;
+
+  static String w='';
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +41,20 @@ class WeatherState extends State<Weather> {
                             w == "SUNNY" ? Color(0xffADC178) : Colors.redAccent,
                         focusColor: Color(0xffADC178),
                         onPressed: () {
-                          w = "SUNNY";
+                          setState(() {
+                            w = "SUNNY";
+                          });
+                          
                         },
                       ),
                       IconButton(
                         icon: Icon(Icons.foggy),
                         color: w == "FOGGY" ? Color(0xffADC178) : Colors.grey,
                         onPressed: () {
-                          w = "FOGGY";
+                          setState(() {
+                            w = "FOGGY";
+                          });
+                          
                         },
                       ),
                       IconButton(
@@ -54,7 +62,10 @@ class WeatherState extends State<Weather> {
                         color:
                             w == "CLOUDY" ? Color(0xffADC178) : Colors.black54,
                         onPressed: () {
-                          w = "CLOUDY";
+                          setState(() {
+                             w = "CLOUDY";
+                          });
+                         
                         },
                       ),
                       IconButton(
@@ -63,7 +74,10 @@ class WeatherState extends State<Weather> {
                             ? Color(0xffADC178)
                             : Colors.blueAccent,
                         onPressed: () {
-                          w = "RAINY";
+                          setState(() {
+                            w = "RAINY";
+                          });
+                          
                         },
                       ),
                       IconButton(
@@ -72,7 +86,10 @@ class WeatherState extends State<Weather> {
                             ? Color(0xffADC178)
                             : Colors.lightBlueAccent,
                         onPressed: () {
-                          w = "SNOWY";
+                          setState(() {
+                            w = "SNOWY";
+                          });
+                          
                         },
                       ),
                     ]),

@@ -1,5 +1,7 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -11,17 +13,21 @@ import 'dart:convert';
 final date = DateTime.now();
 final year = date.year;
 final month = date.month;
-
-Future<dynamic> fetchInfo() async {
+late int level=0;
+ fetchInfo() async {
+  
   var url =
-      'http://ec2-13-209-3-136.ap-northeast-2.compute.amazonaws.com:8080/diary/monthly/$year$month/plant';
+      'http://ec2-3-37-88-234.ap-northeast-2.compute.amazonaws.com:8080/diary/monthly/$year${month.toString().padLeft(2,"0")}/plant';
   final response = await http.get(Uri.parse(url));
-  var responseBody = response.body;
-  if (response.statusCode == 200) {
-    print("서버 응답");
-    return responseBody;
+  var responseBody = json.decode(response.body);
+ 
+  if (response.statusCode == 200||response.statusCode == 201) {
+    print(responseBody);
+    level = responseBody;
+    
   } else {
     throw Exception("식물 정보 불러오기 실패");
+   
   }
 }
 
@@ -33,18 +39,21 @@ class plant extends StatefulWidget {
 }
 
 class _plantState extends State<plant> {
-  int? level;
 
   void initState() {
     super.initState();
-   level = fetchInfo() as int?;
+    fetchInfo();
   }
+
 
   @override
   Widget build(BuildContext context) {
+    
+    
     var w = MediaQuery.of(context).size.width;
     var h = MediaQuery.of(context).size.height;
     return Scaffold(
+      bottomNavigationBar: buildCurvedNavigationBar(),
         backgroundColor: const Color(0xffF0EAD2),
         body: Center(
           child: Column(
@@ -67,7 +76,7 @@ class _plantState extends State<plant> {
                 animation: true,
                 lineHeight: h * 0.03,
                 animationDuration: 2500,
-                percent: level!/31,
+                percent: level/31,
                 center: Text(
                   "$level/31",
                   style: const TextStyle(fontSize: 12.0),
@@ -105,4 +114,37 @@ class _plantState extends State<plant> {
           ),
         ));
   }
+    int _selectedIndex = 2;
+    List _selectedMenu = [
+    '/diary/monthly/${date.year}${date.month}',
+'/diary/monthly/${date.year}${date.month.toString().padLeft(2,"0")}/emotion',
+'/diary/monthly/${date.year}${date.month.toString().padLeft(2,"0")}/plant',
+  ];
+
+  CurvedNavigationBar buildCurvedNavigationBar(){
+  return CurvedNavigationBar(
+      index: 2,
+      height: 45,
+ backgroundColor:const Color(0xffF0EAD2),
+      
+      buttonBackgroundColor: Colors.transparent,
+      color: const Color(0xff6C584C).withOpacity(0.8),
+      animationDuration: const Duration(milliseconds: 150),
+      animationCurve: Curves.easeInOutQuart,
+      onTap: (index) {
+        setState(() {
+          _selectedIndex = index;
+          Get.toNamed(_selectedMenu.elementAt(_selectedIndex));
+        });
+      },
+
+    items: [  
+  
+        Icon(CupertinoIcons.add_circled_solid, size:(_selectedIndex==0)? 30:20, color:(_selectedIndex==0)? Color(0xffADC178):Color(0xffF0EAD2)),
+        Icon(CupertinoIcons.calendar, size:(_selectedIndex==1)? 30:20, color:(_selectedIndex==1)? Color(0xffADC178):Color(0xffF0EAD2)),
+        Icon(CupertinoIcons.tree, size:(_selectedIndex==2)? 30:20, color:(_selectedIndex==2)? Color(0xffADC178):Color(0xffF0EAD2))
+
+
+  ]);
+}
 }

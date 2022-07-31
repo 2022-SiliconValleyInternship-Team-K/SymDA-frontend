@@ -85,7 +85,7 @@ class _EmotionSelectState extends State<EmotionSelect> {
                         onPressed: () { 
                            onPressed: () async {
         if (s == '아니요') {
-          Navigator.pushNamed(context, '/EmotionSelect');
+          Get.to(EmotionSelect());
         } else {
                            var data = {
                       "content":WritingFieldState.inputText,
@@ -97,7 +97,7 @@ class _EmotionSelectState extends State<EmotionSelect> {
           var body = json.encode(data);
                    http.Response _res = await http.post(
               Uri.parse(
-                  'http://ec2-13-209-3-136.ap-northeast-2.compute.amazonaws.com:8080/diary/new'),
+                  'http://ec2-3-37-88-234.ap-northeast-2.compute.amazonaws.com:8080/diary/new'),
               body: body);
           if (_res.statusCode == 200) {
          Get.toNamed('/diary/date/${DateTime.now().year}${DateTime.now().month.toString().padLeft(2,"0")}${DateTime.now().day.toString().padLeft(2,"0")}');
