@@ -6,16 +6,40 @@ import 'package:symda/src/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import'package:symda/pages/mainCalender.dart';
 var w;
 var h;
+var list;
 class ShowOneBody extends StatefulWidget {
   const ShowOneBody({Key? key}) : super(key: key);
 
   @override
   State<ShowOneBody> createState() => _ShowOneBodyState();
 }
+   void fetchInfo() async {
+    var url =
+        'http://ec2-3-37-88-234.ap-northeast-2.compute.amazonaws.com:8080/diary/date/${mainCalenderState.selectedDateTime.year}${mainCalenderState.selectedDateTime.month.toString().padLeft(2,"0")}${mainCalenderState.selectedDateTime.day.toString().padLeft(2,"0")}';
+    
+    final response = await http.get(Uri.parse(url));
+var responseBody = jsonDecode(utf8.decode(response.bodyBytes));
+   print (responseBody);
+    
+    if (response.statusCode == 200||response.statusCode == 201) {
+      print("서버 응답");
+      list=responseBody;
+    } else {
+      throw Exception("정보 불러오기 실패");
+    }
+  }
+
 
 class _ShowOneBodyState extends State<ShowOneBody> {
+
+    void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +62,9 @@ class _ShowOneBodyState extends State<ShowOneBody> {
           color: Colors.grey[300],
         ),
         EmotionHeader(),
-        _buildWriting(), // 일기 내용
+        _buildWriting(), 
+        if(list["imageUrl"]!=null)
+          // 일기 내용
         _buildImage(), // 일기에 첨부된 사진
         Divider(
           height: 1,
@@ -51,6 +77,7 @@ class _ShowOneBodyState extends State<ShowOneBody> {
           thickness: 1,
           color: Colors.grey[300],
         ),
+        
         _buildMusic(), // 추천 음악
       ]),
     );
@@ -76,7 +103,7 @@ var Date = DateTime.now();
     padding: EdgeInsets.symmetric(horizontal: 16),
     child: Row(
       children: [
-        Text('${list[0]["createdAt"].month}/${list[0]["createdAt"].day} 일기',style: TextStyle(fontSize: 25,fontFamily: 'NanumMyeongjo',color:Color(0xff6C584C)),
+        Text('${list["date"]} 일기',style: TextStyle(fontSize: 25,fontFamily: 'NanumMyeongjo',color:Color(0xff6C584C)),
           // 일기 작성 날짜
   
         ),
@@ -96,7 +123,7 @@ Padding _buildWriting() {
       alignment: Alignment.centerLeft,
       child: Text(
         
-              '${list[0]["content"]}',
+              '${list["content"]}',
           style: TextStyle(fontFamily: 'YS',letterSpacing: 0.8,fontSize: 15,height: 1.5)
   
       ),
@@ -115,7 +142,7 @@ Padding _buildImage() {
     ),
     child:
         Image.network(
-          '${list[0]["imageUrl"]}',
+          '${list["imageUrl"]}',
           //이미지
           width: w*0.7,
           height: h*0.3,
@@ -137,7 +164,7 @@ Padding _buildComment() {
         TextSpan(text: '오늘의 한 마디\n\n', style: textTheme().headline2),
         TextSpan(
             style: textTheme().subtitle2,
-            text: '${list[0]["comment"]}'),
+            text: '정말 즐거웠겠다! 앞으로도 오늘 같은 날이 이어지길 바랄게:)'),
       ])),
     ),
   );
@@ -161,7 +188,7 @@ Padding _buildMusic() {
                 color: Colors.black,
                 fontWeight: FontWeight.bold),
           ),
-          IconButton(icon: Icon(Icons.library_music_rounded,color: Colors.red,size: 35,), onPressed: () { launch(list[0]["music_url"]); },)
+          Icon(Icons.library_music_rounded,color: Colors.red,size: 35,)
         ],
       ),
 

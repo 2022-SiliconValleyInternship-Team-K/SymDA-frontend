@@ -12,7 +12,7 @@ import 'dart:convert';
 final date = DateTime.now();
 final year = date.year;
 final month = date.month.toString().padLeft(2,"0");
-var length;
+var length=0;
 var list;
 var url;
 
@@ -26,21 +26,25 @@ enum CalendarViews { dates, months, year }
 class mainCalenderState extends State<mainCalender> {
   void fetchInfo() async {
     url =
-        'http://ec2-13-209-3-136.ap-northeast-2.compute.amazonaws.com:8080/diary/monthly/$year$month/emotion';
+        'http://ec2-3-37-88-234.ap-northeast-2.compute.amazonaws.com:8080/diary/monthly/${currentDateTime.year}${currentDateTime.month.toString().padLeft(2,"0")}/emotion';
     final response = await http.get(Uri.parse(url));
     var responseBody = response.body;
     list = jsonDecode(responseBody);
-    length = list.length;
-    if (response.statusCode == 200) {
-      print("서버 응답");
+    if(list!=null){
+      length = list.length;
+
+    }
+    
+    if (response.statusCode == 200||response.statusCode == 201) {
+      print(length);
     } else {
       throw Exception("감정 정보 불러오기 실패");
     }
   }
 
-  Future<dynamic>? emotion;
-  late DateTime _currentDateTime;
-  late DateTime _selectedDateTime;
+  
+ static late DateTime currentDateTime;
+  static late DateTime selectedDateTime;
   late List<Calendar> _sequentialDates;
   late int midYear;
   CalendarViews _currentView = CalendarViews.dates;
@@ -64,10 +68,10 @@ class mainCalenderState extends State<mainCalender> {
   void initState() {
     super.initState();
     final date = DateTime.now();
-    _currentDateTime = DateTime(date.year, date.month);
-    _selectedDateTime = DateTime(date.year, date.month, date.day);
+    currentDateTime = DateTime(date.year, date.month);
+    selectedDateTime = DateTime(date.year, date.month, date.day);
     setState(() => _getCalendar());
-    // fetchInfo();
+     fetchInfo();
   }
 
   @override
@@ -92,7 +96,7 @@ class mainCalenderState extends State<mainCalender> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Padding(padding: EdgeInsets.only(top: 10)),
+                  const Padding(padding: EdgeInsets.only(top: 15)),
                   Container(
                       alignment: Alignment.topLeft,
                       child: const Text(
@@ -126,19 +130,19 @@ class mainCalenderState extends State<mainCalender> {
             _toggleBtn(false),
             // month and year
             Expanded(
-              child: InkWell(
-                onTap: () =>
-                    setState(() => _currentView = CalendarViews.months),
-                child: Center(
-                  child: Text(
-                    _monthNames[_currentDateTime.month - 1],
-                    style: TextStyle(
-                        color: Color(0xffADC178),
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700),
+              child:  InkWell(
+                  onTap: () =>
+                      setState(() => _currentView = CalendarViews.months),
+                  child: Center(
+                    child: Text(
+                      _monthNames[currentDateTime.month - 1],
+                      style: TextStyle(
+                          color: Color(0xffADC178),
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700),
+                    ),
                   ),
-                ),
-              ),
+                )
             ),
             // next month button
             _toggleBtn(true),
@@ -165,31 +169,31 @@ class mainCalenderState extends State<mainCalender> {
   // next / prev month buttons
   Widget _toggleBtn(bool next) {
     return InkWell(
-      onTap: () {
-        if (_currentView == CalendarViews.dates) {
-          setState(() => (next) ? _getNextMonth() : _getPrevMonth());
-        } else if (_currentView == CalendarViews.year) {
-          if (next) {
-            midYear =
-                (midYear == null) ? _currentDateTime.year + 9 : midYear + 9;
-          } else {
-            midYear =
-                (midYear == null) ? _currentDateTime.year - 9 : midYear - 9;
+        onTap: () {
+          if (_currentView == CalendarViews.dates) {
+            setState(() => (next) ? _getNextMonth() : _getPrevMonth());
+          } else if (_currentView == CalendarViews.year) {
+            if (next) {
+              midYear =
+                  (midYear == null) ? currentDateTime.year + 9 : midYear + 9;
+            } else {
+              midYear =
+                  (midYear == null) ? currentDateTime.year - 9 : midYear - 9;
+            }
+            setState(() {});
           }
-          setState(() {});
-        }
-      },
-      child: Container(
-        alignment: Alignment.center,
-        width: 30,
-        height: 30,
-        child: Icon(
-          (next) ? Icons.arrow_forward_ios : Icons.arrow_back_ios,
-          color: const Color(0xffADC178),
-          size: 15,
+        },
+        child: Container(
+          alignment: Alignment.center,
+          width: 30,
+          height: 30,
+          child: Icon(
+            (next) ? Icons.arrow_forward_ios : Icons.arrow_back_ios,
+            color: const Color(0xffADC178),
+            size: 15,
+          ),
         ),
-      ),
-    );
+      );
   }
 
   // calendar
@@ -200,13 +204,13 @@ class mainCalenderState extends State<mainCalender> {
       padding: EdgeInsets.zero,
       itemCount: _sequentialDates.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: 5 / 9,
+        childAspectRatio: 5 / 12,
         mainAxisSpacing: 10,
         crossAxisCount: 7,
         crossAxisSpacing: 18,
       ),
       itemBuilder: (context, index) {
-        if (_sequentialDates[index].date == _selectedDateTime) {
+        if (_sequentialDates[index].date == selectedDateTime) {
           return _selector(_sequentialDates[index]);
         }
         return _calendarDates(_sequentialDates[index]);
@@ -245,61 +249,66 @@ class mainCalenderState extends State<mainCalender> {
   // calendar element
   Widget _calendarDates(Calendar calendarDate) {
     return InkWell(
-      onTap: () {
-        if (_selectedDateTime != calendarDate.date) {
-          if (calendarDate.nextMonth) {
-            _getNextMonth();
-          } else if (calendarDate.prevMonth) {
-            _getPrevMonth();
+        onTap: () {
+          if (selectedDateTime != calendarDate.date) {
+            if (calendarDate.nextMonth) {
+              _getNextMonth();
+            } else if (calendarDate.prevMonth) {
+              _getPrevMonth();
+            }
+            setState(() => selectedDateTime = calendarDate.date);
           }
-          setState(() => _selectedDateTime = calendarDate.date);
-        }
-      },
-      child: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Text(
-                '${calendarDate.date.day}',
-                style: TextStyle(
-                  fontSize: 17,
-                  color: (calendarDate.thisMonth)
-                      ? (calendarDate.date.weekday == DateTime.sunday)
-                          ? Colors.redAccent.withOpacity(0.6)
-                          : Colors.black87.withOpacity(0.6)
-                      : (calendarDate.date.weekday == DateTime.sunday)
-                          ? Colors.red.withOpacity(0.3)
-                          : Colors.black87.withOpacity(0.3),
+        },
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(
+                  '${calendarDate.date.day}',
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: (calendarDate.thisMonth)
+                        ? (calendarDate.date.weekday == DateTime.sunday)
+                            ? Colors.redAccent.withOpacity(0.6)
+                            : Colors.black87.withOpacity(0.6)
+                        : (calendarDate.date.weekday == DateTime.sunday)
+                            ? Colors.red.withOpacity(0.3)
+                            : Colors.black87.withOpacity(0.3),
+                  ),
                 ),
-              ),
-              //_emotions(calendarDate)
-            ],
+                _emotions(calendarDate)
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+ 
   }
 
   Widget _emotions(Calendar calendarDate) {
     var _year = calendarDate.date.year;
     var _month = calendarDate.date.month.toString().padLeft(2,'0');
     var _day = calendarDate.date.day.toString().padLeft(2,'0');
+    
     for (int i = 0; i < length; i++) {
+ 
       if ("$_year$_month$_day" == list[i]["date"]) {
-        var emtion = list[i]["emotion"];
-        return InkWell(
-            onTap: () =>
-                Get.toNamed('/diary/date/$_year$_month$_day'),
-            child: Image.asset(
-              'src/images/emotions/$emotion.png',
-              width: 60,
-              height: 40,
-            ));
+        var emotion = list[i]["emotion"];
+        return 
+           InkWell(
+              onTap: () =>
+                  Get.toNamed('/diary/date/$_year$_month$_day'),
+              child: Image.asset(
+                'src/images/emotions/$emotion.png',
+                width: 70,
+                height: 70,
+              ));
+      
       } else {
         continue;
       }
     }
-    return Container(width: 60, height: 40);
+    return Container(width: 60, height: 70);
   }
 
   // date selector
@@ -308,60 +317,61 @@ class mainCalenderState extends State<mainCalender> {
     var _month = calendarDate.date.month;
     var _day = calendarDate.date.day;
 
-    print(_day);
     return InkWell(
-      onTap: () {
-        if (_day == date.day && _year == date.year && _month == date.month) {
-          int i;
-          for (i = 0; i < length; i++) {
-            if ("$_year${_month.toString().padLeft(2,"0")}${_day.toString().padLeft(2,"0")}" == list[i]["date"]) {
-              break;
+        onTap: () {
+          if (_day == date.day && _year == date.year && _month == date.month) {
+            int i=0;
+            if(length!=0){
+        for (; i < length; i++) {
+              if ("$_year${_month.toString().padLeft(2,"0")}${_day.toString().padLeft(2,"0")}" == list[i]["date"]) {
+                break;
+              }
+            }
+            }
+      
+            if (i == length) {
+              Get.toNamed('/diary/new');
             }
           }
-          if (i == length) {
-            Get.toNamed('/diary/new');
-          }
-        }
-      },
-      child: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Text(
-                '${calendarDate.date.day}',
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 17,
-                    backgroundColor: Color(0xff6C584C)),
-              ),
-              SizedBox(
-                height: 20,
-              )
-            ],
+        },
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(
+                  '${calendarDate.date.day}',
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 17,
+                      backgroundColor: Color(0xff6C584C)),
+                ),
+              _emotions(calendarDate),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+ 
   }
 
   // get next month calendar
   void _getNextMonth() {
-    if (_currentDateTime.month == 12) {
-      _currentDateTime = DateTime(_currentDateTime.year + 1, 1);
+    if (currentDateTime.month == 12) {
+      currentDateTime = DateTime(currentDateTime.year + 1, 1);
     } else {
-      _currentDateTime =
-          DateTime(_currentDateTime.year, _currentDateTime.month + 1);
+      currentDateTime =
+          DateTime(currentDateTime.year, currentDateTime.month + 1);
     }
     _getCalendar();
   }
 
   // get previous month calendar
   void _getPrevMonth() {
-    if (_currentDateTime.month == 1) {
-      _currentDateTime = DateTime(_currentDateTime.year - 1, 12);
+    if (currentDateTime.month == 1) {
+      currentDateTime = DateTime(currentDateTime.year - 1, 12);
     } else {
-      _currentDateTime =
-          DateTime(_currentDateTime.year, _currentDateTime.month - 1);
+      currentDateTime =
+          DateTime(currentDateTime.year, currentDateTime.month - 1);
     }
     _getCalendar();
   }
@@ -369,7 +379,7 @@ class mainCalenderState extends State<mainCalender> {
   // get calendar for current month
   void _getCalendar() {
     _sequentialDates = CustomCalendar().getMonthCalendar(
-        _currentDateTime.month, _currentDateTime.year,
+        currentDateTime.month, currentDateTime.year,
         startWeekDay: StartWeekDay.sunday);
   }
 

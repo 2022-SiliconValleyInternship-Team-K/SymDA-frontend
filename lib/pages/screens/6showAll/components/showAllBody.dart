@@ -4,46 +4,83 @@ import 'package:symda/src/theme.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-
+final date = DateTime.now();
+final year = date.year;
+final month = date.month;
 var list;
-var length;
+var length=0;
 class ShowAllBody extends StatefulWidget {
   const ShowAllBody({Key? key}) : super(key: key);
 
   @override
   State<ShowAllBody> createState() => _ShowAllBodyState();
 }
-
-class _ShowAllBodyState extends State<ShowAllBody> {
-    void fetchInfo() async {
+   void fetchInfo() async {
     var url =
-        'http://ec2-13-209-3-136.ap-northeast-2.compute.amazonaws.com:8080/diary/monthly/:date';
+        'http://ec2-3-37-88-234.ap-northeast-2.compute.amazonaws.com:8080/diary/monthly/$year${month.toString().padLeft(2,"0")}';
     final response = await http.get(Uri.parse(url));
-    var responseBody = response.body;
-    list = jsonDecode(responseBody);
-    length = list.length;
-    if (response.statusCode == 200) {
+   
+    list = jsonDecode(utf8.decode(response.bodyBytes));
+  
+    if(list !=null){
+      length = list.length;
+    }
+    
+    if (response.statusCode == 200||response.statusCode == 201) {
       print("서버 응답");
     } else {
+      print(response.statusCode);
       throw Exception("정보 불러오기 실패");
     }
   }
+
+class _ShowAllBodyState extends State<ShowAllBody> {
+   void initState() {
+    super.initState();
+    fetchInfo();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 1,
-    padding: EdgeInsets.all(10.0),
-    children: getList(),
-    );
+    return 
+    Center(
+        
+   
+          child: GridView.count(
+            physics: const NeverScrollableScrollPhysics(), 
+               scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+            crossAxisCount: 1,
+            mainAxisSpacing: 15,
+          padding: EdgeInsets.all(10.0),
+          children: getList(),
+          ),
+        
+      );
+   
 
   }
   
  List<Widget> getList() {
+  
 List<Widget> childs = [];
-for(var i=0;i<length;i++){
-  childs.add(diary(i));
+
+if(length==0){
+ 
+   childs.add(Text("작성한 일기가 없습니다.",style: TextStyle(color:const Color(0xff6C584C),fontSize: 18,fontFamily: 'NanumSquare'),));
+   return childs;
 }
+else{
+ 
+  for(var i=0;i<length;i++){
+  childs.add(diary(i));
+  
+}
+
 return childs;
+
+}
+
 
  }
 }
@@ -55,18 +92,21 @@ Container diary(int i){
       
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
-      child: Column(children: [
-        _buildTop(), // 윗쪽 간격 조정
-        _buildEmotion(i), // 감정스티커와 날짜
-        _buildTop(), // 간격 조정
-        Divider(
-          height: 1,
-          thickness: 1,
-          color: Colors.grey[300],
-        ),
-        _buildWriting(i), // 일기 내용
-        _buildImage(i), // 일기에 첨부된 사진
-      ]),
+      child: SingleChildScrollView(
+        child: Column(children: [
+          _buildTop(), // 윗쪽 간격 조정
+          _buildEmotion(i), // 감정스티커와 날짜
+          _buildTop(), // 간격 조정
+          Divider(
+            height: 1,
+            thickness: 1,
+            color: Colors.grey[300],
+          ),
+          _buildWriting(i), // 일기 내용
+          _buildImage(i), 
+          // 일기에 첨부된 사진
+        ]),
+      ),
     );
 }
 
@@ -128,8 +168,8 @@ Padding _buildWriting(int i) {
 }
 
 
-Padding _buildImage(int i) {
-  // 일기에 첨부된 사진 - 크기 조정을 위해 임시로 asset에 있는 사진을 보여주도록 함
+Widget _buildImage(int i) {
+  if(list[i]["imageUrl"] !=null){
   return Padding(
     padding: EdgeInsets.only(
       left: 16,
@@ -142,5 +182,7 @@ Padding _buildImage(int i) {
       width: double.infinity,
       fit: BoxFit.cover,
     ),
-  );
+  );}
+  
+  return SizedBox(height:10);
 }
