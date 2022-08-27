@@ -22,14 +22,17 @@ class _SignUpState extends State<SignUp> {
     final form = _formkey.currentState;
     if (form!.validate()) {
       form.save();
-      var data = {"email": _id, "password": _password};
+      var data = {"email":_id, "password": _password};
       var body = json.encode(data);
 
       http.Response _res = await http.post(
           Uri.parse(
-              'http://ec2-13-209-3-136.ap-northeast-2.compute.amazonaws.com:8080/users/signup'),
-          body: body);
-      if (_res.statusCode == 200) {
+              'http://ec2-3-37-88-234.ap-northeast-2.compute.amazonaws.com:8080/users/signup'),
+          body: body,headers: {
+          "Accept": "application/json",
+          "content-type": "application/json"
+        });
+      if (_res.statusCode == 200||_res.statusCode == 201) {
         Get.toNamed('/users/login');
         print('Form is valid');
       } else {
@@ -130,14 +133,10 @@ class _SignUpState extends State<SignUp> {
                                 if (value == null || value.isEmpty) {
                                   return null;
                                 } else {
-                                  final RegExp regex = RegExp(
-                                      r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?~^<>,.&+=])[A-Za-z\d$@$!%*#?~^<>,.&+=]{7,}$');
-                                  if (!regex.hasMatch(value)) {
-                                    return '특수문자, 영어, 숫자 포함 7자 이상 입력해주세요';
-                                  } else {
+                            
                                     return null;
                                   }
-                                }
+                                
                               },
                               cursorColor: const Color(0xff6C584C),
                               style: TextStyle(height: 1.5),

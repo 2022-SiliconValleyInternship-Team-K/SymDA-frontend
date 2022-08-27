@@ -37,9 +37,12 @@ class _LogInState extends State<LogIn> {
  
           http.Response _res = await http.post(
               Uri.parse(
-                  'http://ec2-13-209-3-136.ap-northeast-2.compute.amazonaws.com:8080/users/login'),
-              body: body);
-          if (_res.statusCode == 200) {
+                  'http://ec2-3-37-88-234.ap-northeast-2.compute.amazonaws.com:8080/users/login'),
+              body: body,headers: {
+          "Accept": "application/json",
+          "content-type": "application/json"
+        });
+          if (_res.statusCode == 200||_res.statusCode == 201) {
          Get.toNamed('/diary/monthly/${DateTime.now().year}${DateTime.now().month.toString().padLeft(2,"0")}/emotion');
             print('Form is valid');
           } else {
@@ -121,13 +124,9 @@ class _LogInState extends State<LogIn> {
                                       if ((value == null || value.isEmpty)) {
                                         return '비밀번호를 입력해주세요';
                                       } else {
-                                        final RegExp regex = RegExp(
-                                            r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?~^<>,.&+=])[A-Za-z\d$@$!%*#?~^<>,.&+=]{7,}$');
-                                        if (!regex.hasMatch(value)) {
-                                          return '특수문자, 영어, 숫자 포함 7자 이상 입력해주세요';
-                                        } else {
+                                      
                                           return null;
-                                        }
+                                        
                                       }
                                     } else {
                                       return null;
